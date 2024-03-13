@@ -17,6 +17,8 @@ public class Hero : MonoBehaviour
     private Animator anim;
 
 
+    public static Hero Instance { get; set; }
+    
     private States State
     {
         get { return (States)anim.GetInteger("state");}
@@ -28,7 +30,7 @@ public class Hero : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
-        
+        Instance = this;
     }
 
     private void FixedUpdate()
@@ -70,6 +72,13 @@ public class Hero : MonoBehaviour
         
         if (!isGrounded) State = States.Jump;
     }
+
+    public  void GetDamage()
+    {
+        lives -= 1;
+        Debug.Log(lives);
+    }
+
 }
 
 public enum States
